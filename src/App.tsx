@@ -8,6 +8,7 @@ import { CollectorItems } from "./components/CollectorItems";
 import { PrestigeProgress } from "./components/PrestigeProgress";
 import { Toaster } from "sonner";
 import { KappaTaskList } from "./components/KappaTaskList";
+import { VersionLabel } from "@/components/VersionLabel"; 
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("tasks");
@@ -18,11 +19,12 @@ export default function App() {
         <h2 className="text-xl font-semibold text-amber-500">Tarkov Kappa Tracker</h2>
         <SignOutButton />
       </header>
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-8 pb-16"> {/* Added padding at bottom to prevent content from being hidden behind the footer */}
         <div className="max-w-6xl mx-auto">
           <Content activeTab={activeTab} setActiveTab={setActiveTab} />
         </div>
       </main>
+      <VersionLabel />
       <Toaster theme="dark" />
     </div>
   );
