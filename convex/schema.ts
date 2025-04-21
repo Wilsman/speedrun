@@ -56,6 +56,7 @@ const applicationTables = {
   collectorItems: defineTable({
     name: v.string(),
     order: v.number(),
+    img: v.optional(v.string()),
   }).index("by_order", ["order"]), // Add index for ordering
 
   userCollectorProgress: defineTable({

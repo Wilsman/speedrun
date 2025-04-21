@@ -18,6 +18,7 @@ export const load = internalMutation({
       await ctx.db.insert("collectorItems", {
         name: item.name,
         order: item.order,
+        img: item.img,
       });
       count++;
     }

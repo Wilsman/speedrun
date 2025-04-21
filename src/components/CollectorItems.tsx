@@ -4,9 +4,18 @@ import { useState } from "react";
 import { Id } from "../../convex/_generated/dataModel";
 import { ProgressBar } from "./ProgressBar";
 
+interface CollectorItem {
+  found: boolean;
+  _id: Id<"collectorItems">;
+  _creationTime: number;
+  name: string;
+  order: number;
+  img: string;
+}
+
 export function CollectorItems() {
   const [searchTerm, setSearchTerm] = useState("");
-  const items = useQuery(api.collector.list);
+  const items = useQuery(api.collector.list) as CollectorItem[] | undefined;
   const toggleItem = useMutation(api.collector.toggleItem);
 
   const handleToggle = (itemId: Id<"collectorItems">) => {
@@ -62,6 +71,16 @@ export function CollectorItems() {
                 onChange={() => handleToggle(item._id)}
                 className="accent-amber-500 w-5 h-5 rounded border-gray-600 focus:ring-amber-500 focus:ring-offset-gray-800"
               />
+              {item.img && (
+                <img
+                  src={item.img}
+                  alt={item.name}
+                  className="w-7 h-7 rounded object-cover bg-gray-800 border border-gray-700"
+                  width={28}
+                  height={28}
+                  loading="lazy"
+                />
+              )}
               <span className={item.found ? "line-through text-gray-500" : "text-gray-100"}>
                 {item.name}
               </span>
