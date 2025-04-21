@@ -3,9 +3,10 @@ import { SignInForm } from "./SignInForm";
 import { SignOutButton } from "./SignOutButton";
 import { useState } from "react";
 import { BossList } from "./components/BossList";
-import { HideoutProgress } from "./components/HideoutProgress";
+// import { HideoutProgress } from "./components/HideoutProgress";
 import { CollectorItems } from "./components/CollectorItems";
 import { PrestigeProgress } from "./components/PrestigeProgress";
+import { LightkeeperRequirements } from "./components/LightkeeperRequirements";
 import { Toaster } from "sonner";
 import { KappaTaskList } from "./components/KappaTaskList";
 import { VersionLabel } from "@/components/VersionLabel"; 
@@ -69,8 +70,9 @@ function Tabs({
     { id: "tasks", label: "Kappa Tasks" },
     { id: "collector", label: "Collector Items" },
     { id: "bosses", label: "Boss Progression" },
-    { id: "hideout", label: "Hideout" },
+    // { id: "hideout", label: "Hideout" },
     { id: "prestige", label: "Prestige Goals" },
+    { id: "lightkeeper", label: "Lightkeeper Req." },
   ];
 
   return (
@@ -105,10 +107,12 @@ function TabContent({ activeTab }: { activeTab: string }) {
       return <CollectorItems />;
     case "bosses":
       return <BossList />;
-    case "hideout":
-      return <HideoutProgress />;
+    // case "hideout":
+    //   return <HideoutProgress />;
     case "prestige":
       return <PrestigeProgress />;
+    case "lightkeeper":
+      return <LightkeeperRequirements />;
     default:
       return <div className="text-gray-400 mt-8">Coming soon...</div>;
   }
