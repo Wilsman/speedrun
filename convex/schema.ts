@@ -3,6 +3,16 @@ import { v } from "convex/values";
 import { authTables } from "@convex-dev/auth/server";
 
 const applicationTables = {
+  // Explicitly define users table to include tokenIdentifier
+  users: defineTable({
+    // Fields required by our app - Make optional to handle existing docs
+    tokenIdentifier: v.optional(v.string()),
+    // Optional fields that might come from identity or authTables
+    name: v.optional(v.string()),
+    email: v.optional(v.string()),
+    isAnonymous: v.optional(v.boolean()), // Add field from authTables
+  }).index("by_tokenIdentifier", ["tokenIdentifier"]),
+
   // Base tasks table - stores the task definitions
   tasks: defineTable({
     name: v.string(),
@@ -52,6 +62,20 @@ const applicationTables = {
     }),
   }).index("by_user", ["userId"]),
 
+  // --- Lightkeeper Quest Tables ---
+  lightkeeperQuests: defineTable({
+    name: v.string(),
+    order: v.number(),
+  }).index("by_order", ["order"]),
+
+  userLightkeeperProgress: defineTable({
+    userId: v.id("users"),
+    questId: v.id("lightkeeperQuests"),
+    completed: v.boolean(),
+  })
+    .index("by_user_quest", ["userId", "questId"])
+    .index("by_user", ["userId"]),
+
   // --- New Tables for Collector ---
   collectorItems: defineTable({
     name: v.string(),
@@ -69,6 +93,6 @@ const applicationTables = {
 };
 
 export default defineSchema({
-  ...authTables,
-  ...applicationTables,
+  ...authTables, // Spread base auth tables first
+  ...applicationTables, // Spread our tables
 });

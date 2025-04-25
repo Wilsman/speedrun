@@ -1,7 +1,9 @@
 import { Authenticated, Unauthenticated } from "convex/react";
 import { SignInForm } from "./SignInForm";
 import { SignOutButton } from "./SignOutButton";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useMutation } from "convex/react";
+import { api } from "../convex/_generated/api";
 import { BossList } from "./components/BossList";
 // import { HideoutProgress } from "./components/HideoutProgress";
 import { CollectorItems } from "./components/CollectorItems";
@@ -31,6 +33,22 @@ export default function App() {
   );
 }
 
+/**
+ * Component that calls the ensureUser internal mutation once when mounted.
+ * Should be rendered inside the <Authenticated> block.
+ */
+function EnsureUser() {
+  const ensureUserMutation = useMutation(api.users.ensureUser);
+
+  useEffect(() => {
+    // Call the mutation only once when the component mounts
+    // Add void to explicitly ignore the promise
+    void ensureUserMutation({}); 
+  }, [ensureUserMutation]); // Depend on the mutation function
+
+  return null; // This component doesn't render anything visible
+}
+
 function Content({
   activeTab,
   setActiveTab,
@@ -45,6 +63,7 @@ function Content({
           Tarkov Kappa Prestige Tracker
         </h1>
         <Authenticated>
+          <EnsureUser /> { /* Call ensureUser when authenticated */ }
           <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
           <TabContent activeTab={activeTab} />
         </Authenticated>
