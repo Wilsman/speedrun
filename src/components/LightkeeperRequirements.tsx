@@ -33,7 +33,7 @@ export function LightkeeperRequirements() {
       <h3 className="text-xl font-semibold text-amber-500">Lightkeeper Requirements</h3>
 
       {/* Progress Bar Section (no surrounding box) */}
-      <div> 
+      <div className="bg-gray-800 p-4 rounded-lg">
         <div className="flex items-center justify-between mb-1 text-gray-300"> {/* Adjusted margin and text color */} 
           <span>Overall Progress</span>
           <span> {/* Adjusted span */} 
@@ -49,11 +49,11 @@ export function LightkeeperRequirements() {
       </div>
 
       {/* Quest List Section (no surrounding box, no fixed height scroll) */}
-      <div className="space-y-2"> {/* Just the list with item spacing */} 
+      <div className="bg-gray-800 p-4 rounded-lg"> {/* Just the list with item spacing */} 
         {quests.map((quest) => (
           <label
             key={quest._id}
-            className="flex items-center space-x-2 py-1 cursor-pointer select-none hover:bg-gray-800 rounded"
+            className="flex items-center space-x-2 py-1 cursor-pointer select-none hover:bg-gray-700 rounded"
           >
             {/* Wiki icon link */}
             <a
