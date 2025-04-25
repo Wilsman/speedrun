@@ -88,15 +88,18 @@ function Tabs({
   const tabs = [
     { id: "tasks", label: "Kappa Tasks" },
     { id: "collector", label: "Collector Items" },
+    { id: "lightkeeper", label: "Lightkeeper Req." },
     { id: "bosses", label: "Boss Progression" },
     // { id: "hideout", label: "Hideout" },
     { id: "prestige", label: "Prestige Goals" },
-    { id: "lightkeeper", label: "Lightkeeper Req." },
   ];
 
   return (
-    <div className="border-b border-gray-700">
-      <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+    <div className="border-b border-gray-700 relative">
+      <nav
+        className="-mb-px flex space-x-8 overflow-x-auto whitespace-nowrap scrollbar-hide sm:overflow-visible sm:whitespace-normal"
+        aria-label="Tabs"
+      >
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -114,6 +117,11 @@ function Tabs({
           </button>
         ))}
       </nav>
+      {/* Right fade scroll indicator, mobile only */}
+      <div
+        className="pointer-events-none absolute top-0 right-0 h-full w-8 bg-gradient-to-l from-gray-900 via-gray-900/80 to-transparent sm:hidden"
+        aria-hidden="true"
+      />
     </div>
   );
 }

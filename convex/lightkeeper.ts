@@ -1,5 +1,6 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import { getAuthUserId } from "@convex-dev/auth/server";
 
 // --- QUEST LIST ---
 const QUEST_LIST = [
@@ -134,22 +135,14 @@ export const getAllLightkeeperQuests = query({
 export const getUserLightkeeperProgress = query({
   args: {},
   handler: async (ctx, _args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      return [];
-    }
-    const user = await ctx.db
-      .query("users")
-      .filter(q => q.eq(q.field("tokenIdentifier" as any), identity.tokenIdentifier))
-      .unique();
-
-    if (!user) {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
       return [];
     }
 
     return await ctx.db
       .query("userLightkeeperProgress")
-      .withIndex("by_user", (q) => q.eq("userId", user._id))
+      .withIndex("by_user", (q) => q.eq("userId", userId))
       .collect();
   },
 });
@@ -160,23 +153,15 @@ export const toggleLightkeeperQuest = mutation({
     questId: v.id("lightkeeperQuests"),
   },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
       throw new Error("User must be logged in to update progress");
-    }
-    const user = await ctx.db
-      .query("users")
-      .filter(q => q.eq(q.field("tokenIdentifier" as any), identity.tokenIdentifier))
-      .unique();
-
-    if (!user) {
-      throw new Error("User not found");
     }
 
     const existing = await ctx.db
       .query("userLightkeeperProgress")
       .withIndex("by_user_quest", (q) =>
-        q.eq("userId", user._id).eq("questId", args.questId)
+        q.eq("userId", userId).eq("questId", args.questId)
       )
       .unique();
 
@@ -185,7 +170,7 @@ export const toggleLightkeeperQuest = mutation({
       return { completed: !existing.completed };
     } else {
       await ctx.db.insert("userLightkeeperProgress", {
-        userId: user._id,
+        userId: userId,
         questId: args.questId,
         completed: true,
       });
