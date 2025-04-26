@@ -107,12 +107,13 @@ function Tabs({
   setActiveTab: (tab: string) => void;
 }) {
   const tabs = [
-    { id: "tasks", label: "Kappa Tasks" },
-    { id: "collector", label: "Collector Items" },
-    { id: "lightkeeper", label: "Lightkeeper Req." },
-    { id: "bosses", label: "Boss Progression" },
-    // { id: "hideout", label: "Hideout" },
-    { id: "prestige", label: "Prestige Goals" },
+    { id: "tasks", label: "Kappa Tasks", type: "internal" as const },
+    { id: "collector", label: "Collector Items", type: "internal" as const },
+    { id: "lightkeeper", label: "Lightkeeper Req.", type: "internal" as const },
+    { id: "bosses", label: "Boss Progression", type: "internal" as const },
+    // { id: "hideout", label: "Hideout", type: "internal" as const },
+    { id: "prestige", label: "Prestige Goals", type: "internal" as const },
+    { id: "storyline", label: "1.0 Storyline quests", type: "external" as const, href: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }, // New external link tab
   ];
 
   return (
@@ -121,22 +122,39 @@ function Tabs({
         className="-mb-px flex space-x-8 overflow-x-auto whitespace-nowrap scrollbar-hide sm:overflow-visible sm:whitespace-normal"
         aria-label="Tabs"
       >
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`
-              border-b-2 py-4 px-1 text-sm font-medium
-              ${
-                activeTab === tab.id
-                  ? "border-amber-500 text-amber-500"
-                  : "border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-300"
-              }
-            `}
-          >
-            {tab.label}
-          </button>
-        ))}
+        {tabs.map((tab) => {
+          const commonClasses = `
+            border-b-2 py-4 px-1 text-sm font-medium whitespace-nowrap
+          `;
+          const activeClasses = "border-amber-500 text-amber-500";
+          const inactiveClasses = "border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-300";
+
+          if (tab.type === "internal") {
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`${commonClasses} ${
+                  activeTab === tab.id ? activeClasses : inactiveClasses
+                }`}
+              >
+                {tab.label}
+              </button>
+            );
+          } else { // External link
+            return (
+              <a
+                key={tab.id}
+                href={tab.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${commonClasses} ${inactiveClasses} animate-flash-blue`}
+              >
+                {tab.label}
+              </a>
+            );
+          }
+        })}
       </nav>
       {/* Right fade scroll indicator, mobile only */}
       <div

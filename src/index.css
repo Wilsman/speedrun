@@ -71,6 +71,19 @@
   font-display: swap;
 }
 
+@keyframes flash-blue {
+  0%, 100% {
+    color: theme('colors.gray.400'); /* Default text color from Tabs component */
+  }
+  50% {
+    color: theme('colors.blue.400'); /* Flashing color */
+  }
+}
+
+.animate-flash-blue {
+  animation: flash-blue 1.5s infinite;
+}
+
 .accent-text {
   @apply text-slate-600;
 }
@@ -106,4 +119,3 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
-
