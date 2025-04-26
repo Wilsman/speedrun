@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from "convex/react";
+import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useState } from "react";
 import { Id } from "../../convex/_generated/dataModel";
@@ -22,6 +22,10 @@ interface Task {
   trader: string;
   order: number;
   completed: boolean;
+}
+
+interface KappaTaskListProps {
+  allTasks: Task[] | undefined;
 }
 
 function TraderTaskList({ trader, tasks }: { trader: string, tasks: Task[] }) {
@@ -79,10 +83,8 @@ function TraderTaskList({ trader, tasks }: { trader: string, tasks: Task[] }) {
   );
 }
 
-export function KappaTaskList() {
+export function KappaTaskList({ allTasks }: KappaTaskListProps) {
   const [openTrader, setOpenTrader] = useState<string | null>(null);
-  // Fetch ALL tasks once in the parent component, using the 'all' filter
-  const allTasks = useQuery(api.tasks.list, { filter: "all" }); 
 
   const toggleTrader = (trader: string) => {
     setOpenTrader(openTrader === trader ? null : trader);

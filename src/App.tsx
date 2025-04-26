@@ -13,6 +13,7 @@ import { Toaster } from "sonner";
 import { KappaTaskList } from "./components/KappaTaskList";
 import { VersionLabel } from "@/components/VersionLabel";
 import { Notepad } from "./components/Notepad"; // Import the new Notepad component
+import { useQuery } from "convex/react"; // <-- Add useQuery import
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("tasks");
@@ -166,9 +167,14 @@ function Tabs({
 }
 
 function TabContent({ activeTab }: { activeTab: string }) {
+  // Fetch tasks data here if the tasks tab is potentially active
+  // This query will only run if the component mounts and stays mounted
+  const allTasks = useQuery(api.tasks.list, { filter: "all" });
+
   switch (activeTab) {
     case "tasks":
-      return <KappaTaskList />;
+      // Pass the fetched data to KappaTaskList
+      return <KappaTaskList allTasks={allTasks} />;
     case "collector":
       return <CollectorItems />;
     case "bosses":
