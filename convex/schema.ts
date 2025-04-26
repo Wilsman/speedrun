@@ -13,26 +13,14 @@ const applicationTables = {
     isAnonymous: v.optional(v.boolean()), // Add field from authTables
   }).index("by_tokenIdentifier", ["tokenIdentifier"]),
 
-  // Base tasks table - stores the task definitions
-  tasks: defineTable({
-    name: v.string(),
-    trader: v.string(),
-    order: v.number(),
-  })
-    .index("by_trader", ["trader"])
-    .searchIndex("search_name", {
-      searchField: "name",
-      filterFields: ["trader"],
-    }),
-
-  // User's task progress
+  // User's task progress - Use taskIdentifier string instead of taskId
   userTaskProgress: defineTable({
     userId: v.id("users"),
-    taskId: v.id("tasks"),
+    taskIdentifier: v.string(), // New field: "Trader:Task Name"
     completed: v.boolean(),
   })
     .index("by_user", ["userId"])
-    .index("by_user_and_task", ["userId", "taskId"]),
+    .index("by_user_and_taskIdentifier", ["userId", "taskIdentifier"]),
 
   // User's overall progress
   userProgress: defineTable({

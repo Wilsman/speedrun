@@ -1,8 +1,8 @@
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useState } from "react";
-import { Id } from "../../convex/_generated/dataModel";
 import { ProgressBar } from "./ProgressBar";
+import kappaTasksData from "../../src/data/kappaTasks";
 
 // Define the traders required for Kappa
 const KAPPA_TRADERS = [
@@ -15,33 +15,30 @@ const KAPPA_TRADERS = [
   "Jaeger",
 ];
 
-// Define the Task type based on query structure
-interface Task {
-  _id: Id<"tasks">;
+// Define the Task type based on LOCAL data structure
+interface LocalTask {
   name: string;
-  trader: string;
   order: number;
   completed: boolean;
 }
 
-interface KappaTaskListProps {
-  allTasks: Task[] | undefined;
+interface TraderTaskListProps {
+  trader: string;
+  tasks: LocalTask[];
 }
 
-function TraderTaskList({ trader, tasks }: { trader: string, tasks: Task[] }) {
+function TraderTaskList({ trader, tasks }: TraderTaskListProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const toggleTask = useMutation(api.tasks.toggleTask);
 
-  const handleToggle = (taskId: Id<"tasks">) => {
-    void toggleTask({ taskId });
+  const handleToggle = (taskName: string) => {
+    const taskIdentifier = `${trader}:${taskName}`;
+    void toggleTask({ taskIdentifier });
   };
 
-  // Filter tasks based on search term using the passed tasks prop
   const filteredTasks = tasks.filter(task =>
     task.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  // No need for loading/empty state here as parent handles it
 
   return (
     <div className="">
@@ -49,7 +46,7 @@ function TraderTaskList({ trader, tasks }: { trader: string, tasks: Task[] }) {
         type="text"
         placeholder={`Search ${trader} tasks...`}
         value={searchTerm}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
+        onChange={(e) => setSearchTerm(e.target.value)}
         className="mt-3 mb-2 w-full bg-gray-700 border border-gray-600 text-gray-200 placeholder-gray-500 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500"
       />
       <div className="space-y-2 max-h-80 overflow-y-auto">
@@ -57,16 +54,16 @@ function TraderTaskList({ trader, tasks }: { trader: string, tasks: Task[] }) {
           filteredTasks
             .sort((a, b) => a.order - b.order)
             .map((task) => (
-              <div key={task._id} className="flex items-center space-x-3">
+              <div key={`${trader}-${task.name}`} className="flex items-center space-x-3">
                 <input
                   type="checkbox"
-                  id={task._id}
+                  id={`${trader}-${task.name}`}
                   checked={task.completed}
-                  onChange={() => handleToggle(task._id)} // Use onChange for standard checkbox
+                  onChange={() => handleToggle(task.name)}
                   className="accent-amber-500 w-5 h-5 rounded border-gray-600 focus:ring-amber-500 focus:ring-offset-gray-800"
                 />
                 <label
-                  htmlFor={task._id}
+                  htmlFor={`${trader}-${task.name}`}
                   className={`text-sm font-medium cursor-pointer ${task.completed ? 'line-through text-gray-500' : 'text-gray-200'}`}
                 >
                   {task.name}
@@ -83,27 +80,35 @@ function TraderTaskList({ trader, tasks }: { trader: string, tasks: Task[] }) {
   );
 }
 
-export function KappaTaskList({ allTasks }: KappaTaskListProps) {
+export function KappaTaskList() {
   const [openTrader, setOpenTrader] = useState<string | null>(null);
+
+  // Fetch user progress using the new query
+  const userProgress = useQuery(api.tasks.getProgress);
 
   const toggleTrader = (trader: string) => {
     setOpenTrader(openTrader === trader ? null : trader);
   };
 
-  const kappaTasks = allTasks?.filter(task => KAPPA_TRADERS.includes(task.trader)) ?? [];
-  const overallCompleted = kappaTasks.filter(task => task.completed).length;
-  const overallTotal = kappaTasks.length;
+  const processedTasksByTrader = Object.entries(kappaTasksData)
+    .filter(([trader]) => KAPPA_TRADERS.includes(trader))
+    .reduce((acc, [trader, tasks]) => {
+      acc[trader] = tasks.map(task => ({
+        ...task,
+        // Determine completed status from fetched userProgress
+        completed: userProgress?.[`${trader}:${task.name}`] ?? false,
+      }));
+      return acc;
+    }, {} as Record<string, LocalTask[]>);
 
-  const tasksByTrader = kappaTasks.reduce((acc, task) => {
-    if (!acc[task.trader]) {
-      acc[task.trader] = [];
-    }
-    acc[task.trader].push(task);
-    return acc;
-  }, {} as Record<string, Task[]>);
+  // Calculate overall progress based on processed tasks
+  const allProcessedTasks = Object.values(processedTasksByTrader).flat();
+  const overallCompleted = allProcessedTasks.filter(task => task.completed).length;
+  const overallTotal = allProcessedTasks.length;
 
-  if (allTasks === undefined) {
-    return <div className="text-center text-gray-400 py-4">Loading tasks...</div>;
+  // Add loading state while userProgress is fetching
+  if (userProgress === undefined) {
+    return <div className="text-center text-gray-400 py-4">Loading task progress...</div>;
   }
 
   return (
@@ -118,7 +123,9 @@ export function KappaTaskList({ allTasks }: KappaTaskListProps) {
       </div>
 
       {KAPPA_TRADERS.map((trader) => {
-        const traderTasks = tasksByTrader[trader] || []; 
+        const traderTasks = processedTasksByTrader[trader] || [];
+        const traderCompleted = traderTasks.filter(t => t.completed).length;
+        const traderTotal = traderTasks.length;
         return (
           <div key={trader} className="border border-gray-700 rounded-md overflow-hidden">
             <button
@@ -129,19 +136,17 @@ export function KappaTaskList({ allTasks }: KappaTaskListProps) {
                 <span>{trader}</span>
                 <div className="flex items-center space-x-2">
                   <span className="text-xs text-gray-400">
-                    {traderTasks.filter(t => t.completed).length} / {traderTasks.length}
+                    {traderCompleted} / {traderTotal}
                   </span>
                   <span className={`transform transition-transform duration-200 ${openTrader === trader ? 'rotate-180' : ''}`}>▼</span>
                 </div>
               </div>
-              {/* ProgressBar directly under trader name in header */}
               <div className="w-full mt-1">
-                <ProgressBar value={traderTasks.filter(t => t.completed).length} max={traderTasks.length} />
+                <ProgressBar value={traderCompleted} max={traderTotal} />
               </div>
             </button>
             {openTrader === trader && (
               <div className="px-4 pb-4">
-                {/* Show search and tasks directly, no nested card */}
                 <TraderTaskList trader={trader} tasks={traderTasks} />
               </div>
             )}

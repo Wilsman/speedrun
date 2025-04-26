@@ -1,10 +1,8 @@
-import { Authenticated, Unauthenticated } from "convex/react";
+import { Authenticated, Unauthenticated, useMutation } from "convex/react";
 import { SignInForm } from "./SignInForm";
 import { SignOutButton } from "./SignOutButton";
 import { useState, useEffect } from "react";
-import { useMutation, useQuery } from "convex/react";
 import { api } from "../convex/_generated/api";
-import { Id } from "../convex/_generated/dataModel";
 import { BossList } from "./components/BossList";
 // import { HideoutProgress } from "./components/HideoutProgress";
 import { CollectorItems } from "./components/CollectorItems";
@@ -15,19 +13,9 @@ import { KappaTaskList } from "./components/KappaTaskList";
 import { VersionLabel } from "@/components/VersionLabel";
 import { Notepad } from "./components/Notepad";
 
-interface Task {
-  _id: Id<"tasks">;
-  name: string;
-  trader: string;
-  order: number;
-  completed: boolean;
-}
-
 export default function App() {
   const [activeTab, setActiveTab] = useState("tasks");
   const [isNotepadVisible, setIsNotepadVisible] = useState(false);
-
-  const allTasks = useQuery(api.tasks.list, { filter: "all" });
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-900 text-gray-100 relative">
@@ -48,7 +36,7 @@ export default function App() {
       </header>
       <main className="flex-1 p-8 pb-16">
         <div className="max-w-6xl mx-auto space-y-8">
-          <Content activeTab={activeTab} setActiveTab={setActiveTab} allTasks={allTasks} />
+          <Content activeTab={activeTab} setActiveTab={setActiveTab} />
         </div>
       </main>
       <VersionLabel />
@@ -65,13 +53,11 @@ export default function App() {
 interface ContentProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
-  allTasks: Task[] | undefined;
 }
 
 function Content({
   activeTab,
   setActiveTab,
-  allTasks,
 }: ContentProps) {
   return (
     <div className="flex flex-col gap-8">
@@ -82,7 +68,7 @@ function Content({
         <Authenticated>
           <EnsureUser />
           <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
-          <TabContent activeTab={activeTab} allTasks={allTasks} />
+          <TabContent activeTab={activeTab} />
         </Authenticated>
         <Unauthenticated>
           <p className="text-xl text-gray-400 mb-8">
@@ -162,13 +148,12 @@ function Tabs({
 
 interface TabContentProps {
   activeTab: string;
-  allTasks: Task[] | undefined;
 }
 
-function TabContent({ activeTab, allTasks }: TabContentProps) {
+function TabContent({ activeTab }: TabContentProps) {
   switch (activeTab) {
     case "tasks":
-      return <KappaTaskList allTasks={allTasks} />;
+      return <KappaTaskList />;
     case "collector":
       return <CollectorItems />;
     case "bosses":
