@@ -65,13 +65,14 @@ const applicationTables = {
   // --- Lightkeeper Quest Tables ---
   lightkeeperQuests: defineTable({
     name: v.string(),
-    order: v.number(),
-  }).index("by_order", ["order"]),
+    wikiUrl: v.optional(v.string()),
+  }).index("by_name", ["name"]),
 
   userLightkeeperProgress: defineTable({
     userId: v.id("users"),
     questId: v.id("lightkeeperQuests"),
     completed: v.boolean(),
+    subTasksCompleted: v.optional(v.array(v.number())),
   })
     .index("by_user_quest", ["userId", "questId"])
     .index("by_user", ["userId"]),

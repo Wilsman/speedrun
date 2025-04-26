@@ -116,10 +116,42 @@ export const seedLightkeeperQuests = mutation({
     for (let i = 0; i < QUEST_LIST.length; i++) {
       await ctx.db.insert("lightkeeperQuests", {
         name: QUEST_LIST[i],
-        order: i,
+        // order: i, // Removed - No longer in schema
+        // Add wikiUrl here if needed based on schema
       });
     }
     return null;
+  },
+});
+
+// --- DELETE ALL QUESTS (Use with caution!) ---
+export const deleteAllLightkeeperQuests = mutation({
+  args: { confirm: v.boolean() }, // Add confirmation flag
+  handler: async (ctx, args) => {
+    if (!args.confirm) {
+      throw new Error("You must confirm deletion by passing { confirm: true }.");
+    }
+    console.warn("Deleting all documents from lightkeeperQuests table...");
+    const quests = await ctx.db.query("lightkeeperQuests").collect();
+    let deletedCount = 0;
+    for (const quest of quests) {
+      await ctx.db.delete(quest._id);
+      deletedCount++;
+    }
+    console.log(`Deleted ${deletedCount} quests.`);
+    // Also delete related progress entries
+    const progressEntries = await ctx.db.query("userLightkeeperProgress").collect();
+    let deletedProgressCount = 0;
+    for (const entry of progressEntries) {
+        // Check if the related quest still exists (shouldn't, but safer)
+        const relatedQuest = await ctx.db.get(entry.questId);
+        if (!relatedQuest) { 
+            await ctx.db.delete(entry._id);
+            deletedProgressCount++;
+        }
+    }
+    console.log(`Deleted ${deletedProgressCount} related progress entries.`);
+    return { deletedQuests: deletedCount, deletedProgress: deletedProgressCount };
   },
 });
 
@@ -127,7 +159,8 @@ export const seedLightkeeperQuests = mutation({
 export const getAllLightkeeperQuests = query({
   args: {},
   handler: async (ctx) => {
-    return await ctx.db.query("lightkeeperQuests").withIndex("by_order").order("asc").collect();
+    // Removed .withIndex("by_order").order("asc") as it's no longer valid
+    return await ctx.db.query("lightkeeperQuests").collect(); 
   },
 });
 
@@ -151,6 +184,7 @@ export const getUserLightkeeperProgress = query({
 export const toggleLightkeeperQuest = mutation({
   args: {
     questId: v.id("lightkeeperQuests"),
+    initialState: v.optional(v.boolean()), // Add optional argument
   },
   handler: async (ctx, args) => {
     const userId = await getAuthUserId(ctx);
@@ -169,12 +203,65 @@ export const toggleLightkeeperQuest = mutation({
       await ctx.db.patch(existing._id, { completed: !existing.completed });
       return { completed: !existing.completed };
     } else {
+      // Insert new: use initialState (default true if not provided)
+      const completedState = args.initialState === undefined ? true : args.initialState;
       await ctx.db.insert("userLightkeeperProgress", {
         userId: userId,
         questId: args.questId,
-        completed: true,
+        completed: completedState, // Use the determined state
+        subTasksCompleted: [], // Initialize subtasks as empty array
       });
-      return { completed: true };
+      return { completed: completedState };
     }
+  },
+});
+
+// --- TOGGLE SUB-TASK COMPLETION ---
+export const toggleLightkeeperSubTask = mutation({
+  args: {
+    questId: v.id("lightkeeperQuests"),
+    subTaskIndex: v.number(),
+  },
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      throw new Error("User must be logged in to update progress");
+    }
+
+    // Find the existing progress document for the main quest
+    const existingProgress = await ctx.db
+      .query("userLightkeeperProgress")
+      .withIndex("by_user_quest", (q) =>
+        q.eq("userId", userId).eq("questId", args.questId)
+      )
+      .unique();
+
+    if (!existingProgress) {
+      // Should not happen if the main quest checkbox exists, but handle defensively
+      throw new Error("Main quest progress not found. Cannot toggle sub-task.");
+    }
+
+    // Get the current list of completed sub-task indices, or initialize if undefined
+    const currentSubTasks = existingProgress.subTasksCompleted ?? [];
+
+    // Check if the subTaskIndex is already in the array
+    const indexInArray = currentSubTasks.indexOf(args.subTaskIndex);
+
+    let newSubTasks: number[];
+
+    if (indexInArray > -1) {
+      // If it exists, remove it
+      newSubTasks = currentSubTasks.filter((index) => index !== args.subTaskIndex);
+    } else {
+      // If it doesn't exist, add it
+      newSubTasks = [...currentSubTasks, args.subTaskIndex].sort((a, b) => a - b); // Keep sorted
+    }
+
+    // Patch the document with the updated array
+    await ctx.db.patch(existingProgress._id, {
+      subTasksCompleted: newSubTasks,
+    });
+
+    return { subTasksCompleted: newSubTasks };
   },
 });
