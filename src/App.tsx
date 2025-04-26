@@ -11,24 +11,45 @@ import { PrestigeProgress } from "./components/PrestigeProgress";
 import { LightkeeperRequirements } from "./components/LightkeeperRequirements";
 import { Toaster } from "sonner";
 import { KappaTaskList } from "./components/KappaTaskList";
-import { VersionLabel } from "@/components/VersionLabel"; 
+import { VersionLabel } from "@/components/VersionLabel";
+import { Notepad } from "./components/Notepad"; // Import the new Notepad component
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("tasks");
+  const [isNotepadVisible, setIsNotepadVisible] = useState(false); // State for notepad visibility
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-900 text-gray-100">
+    <div className="min-h-screen flex flex-col bg-gray-900 text-gray-100 relative"> {/* Added relative positioning */}
       <header className="sticky top-0 z-10 bg-gray-800/80 backdrop-blur-sm p-4 flex justify-between items-center border-b border-gray-700">
         <h2 className="text-xl font-semibold text-amber-500">Tarkov Kappa Tracker</h2>
-        <SignOutButton />
+        <div className="flex items-center space-x-4">
+          {/* Notepad Toggle Button */}
+          <button
+            onClick={() => setIsNotepadVisible(!isNotepadVisible)}
+            className="p-2 rounded hover:bg-gray-700 transition-colors"
+            title={isNotepadVisible ? "Hide Notepad" : "Show Notepad"}
+          >
+            {/* Placeholder for icon - Using text for now */}
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+          </button>
+          <SignOutButton />
+        </div>
       </header>
       <main className="flex-1 p-8 pb-16"> {/* Added padding at bottom to prevent content from being hidden behind the footer */}
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto space-y-8"> {/* Added space-y-8 for spacing */}
           <Content activeTab={activeTab} setActiveTab={setActiveTab} />
         </div>
       </main>
       <VersionLabel />
       <Toaster theme="dark" />
+
+      {/* Conditionally render floating Notepad */}
+      <Notepad 
+        isVisible={isNotepadVisible} 
+        onClose={() => setIsNotepadVisible(false)} 
+      />
     </div>
   );
 }

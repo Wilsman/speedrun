@@ -1,41 +1,75 @@
-import { mutation } from "./_generated/server";
+import { mutation, internalQuery, QueryCtx } from "./_generated/server";
+import { v } from "convex/values";
 
 /**
- * Ensures a user document exists for the currently authenticated user.
- * Checks by tokenIdentifier and creates a new user document if one doesn't exist.
- * 
- * @returns The Convex document ID (_id) of the user.
- * @throws Error if the user is not authenticated.
+ * Gets the user record associated with the current session.
+ * @param ctx - The query or mutation context.
+ * @returns The user document or null if not authenticated.
+ */
+export async function getUser(ctx: QueryCtx) {
+  const auth = await ctx.auth.getUserIdentity();
+  if (!auth) {
+    console.warn("User is not authenticated.");
+    return null;
+  }
+  const user = await ctx.db
+    .query("users")
+    .withIndex("by_tokenIdentifier", (q) => q.eq("tokenIdentifier", auth.tokenIdentifier))
+    .unique();
+
+  if (!user) {
+    // This can happen if the user was created recently
+    console.warn(`User not found for tokenIdentifier: ${auth.tokenIdentifier}`);
+    // Optionally, you could attempt to create the user here if needed,
+    // but ensureUser is designed for that purpose.
+    return null;
+  }
+  return user;
+}
+
+/**
+ * Ensures a user record exists for the current session.
+ * If the user doesn't exist, it creates a new user record.
  */
 export const ensureUser = mutation({
   args: {},
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
-
     if (!identity) {
       throw new Error("Called ensureUser without authentication present");
     }
 
-    // Check if user already exists
+    // Check if we've already stored this identity before.
     const user = await ctx.db
       .query("users")
-      // Use filter directly; Convex should use the index if defined
-      .filter(q => q.eq(q.field("tokenIdentifier" as any), identity.tokenIdentifier))
+      .withIndex("by_tokenIdentifier", (q) =>
+        q.eq("tokenIdentifier", identity.tokenIdentifier)
+      )
       .unique();
 
-    // If user exists, return their ID
     if (user !== null) {
+      // If we've seen this identity before but the name has changed, patch the user.
+      if (user.name !== identity.name) {
+        await ctx.db.patch(user._id, { name: identity.name });
+      }
       return user._id;
     }
 
-    // If user doesn't exist, create them
-    const userId = await ctx.db.insert("users", {
-      // Workaround: Explicitly cast to allow setting tokenIdentifier
+    // If it's a new identity, create a new user.
+    return await ctx.db.insert("users", {
+      name: identity.name!,
       tokenIdentifier: identity.tokenIdentifier,
-      // name: identity.name, // Optional: Sync name if available
-      // email: identity.email, // Optional: Sync email if available
-    } as any); // Cast the whole object
+    });
+  },
+});
 
-    return userId;
+// Internal query to get user by token identifier (if needed elsewhere)
+export const getUserByTokenIdentifier = internalQuery({
+  args: { tokenIdentifier: v.string() },
+  async handler(ctx, args) {
+    return await ctx.db
+      .query("users")
+      .withIndex("by_tokenIdentifier", (q) => q.eq("tokenIdentifier", args.tokenIdentifier))
+      .unique();
   },
 });

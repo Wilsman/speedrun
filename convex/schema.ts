@@ -90,6 +90,12 @@ const applicationTables = {
   })
     .index("by_user_item", ["userId", "itemId"]) // Index for toggling
     .index("by_userId", ["userId"]),          // Index for listing user's progress
+
+  // User Notes
+  userNotes: defineTable({
+    userId: v.id("users"),
+    content: v.string(),
+  }).index("by_userId", ["userId"]),
 };
 
 export default defineSchema({

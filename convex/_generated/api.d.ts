@@ -24,6 +24,7 @@ import type * as loadTasks from "../loadTasks.js";
 import type * as migrate_collectoritemsimg from "../migrate_collectoritemsimg.js";
 import type * as migrate_patch from "../migrate_patch.js";
 import type * as migrate_prestigeProgress_patch from "../migrate_prestigeProgress_patch.js";
+import type * as notes from "../notes.js";
 import type * as prestige from "../prestige.js";
 import type * as tasks from "../tasks.js";
 import type * as users from "../users.js";
@@ -48,6 +49,7 @@ declare const fullApi: ApiFromModules<{
   migrate_collectoritemsimg: typeof migrate_collectoritemsimg;
   migrate_patch: typeof migrate_patch;
   migrate_prestigeProgress_patch: typeof migrate_prestigeProgress_patch;
+  notes: typeof notes;
   prestige: typeof prestige;
   tasks: typeof tasks;
   users: typeof users;
