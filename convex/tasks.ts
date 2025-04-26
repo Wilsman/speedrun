@@ -26,7 +26,10 @@ export const getProgress = query({
     // Convert the array of progress entries into a Record<string, boolean>
     const progressMap: Record<string, boolean> = {};
     for (const entry of progressEntries) {
-      progressMap[entry.taskIdentifier] = entry.completed;
+      // Ensure taskIdentifier exists before using it as a key
+      if (entry.taskIdentifier !== undefined) {
+        progressMap[entry.taskIdentifier] = entry.completed;
+      }
     }
 
     return progressMap;
@@ -60,6 +63,7 @@ export const toggleTask = mutation({
         completed: true, // Assuming toggle always sets to completed
       });
     }
+    return { success: true };
   },
 });
 

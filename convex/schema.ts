@@ -16,7 +16,8 @@ const applicationTables = {
   // User's task progress - Use taskIdentifier string instead of taskId
   userTaskProgress: defineTable({
     userId: v.id("users"),
-    taskIdentifier: v.string(), // New field: "Trader:Task Name"
+    // Restore taskIdentifier to required
+    taskIdentifier: v.string(),
     completed: v.boolean(),
   })
     .index("by_user", ["userId"])
