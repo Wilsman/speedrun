@@ -1,4 +1,4 @@
-import { Authenticated, Unauthenticated, useMutation } from "convex/react";
+import { Authenticated, Unauthenticated, useMutation, useQuery } from "convex/react";
 import { SignInForm } from "./SignInForm";
 import { SignOutButton } from "./SignOutButton";
 import { useState, useEffect } from "react";
@@ -16,6 +16,7 @@ import { Notepad } from "./components/Notepad";
 export default function App() {
   const [activeTab, setActiveTab] = useState("tasks");
   const [isNotepadVisible, setIsNotepadVisible] = useState(false);
+  const loggedInUser = useQuery(api.auth.loggedInUser);
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-900 text-gray-100 relative">
@@ -31,7 +32,28 @@ export default function App() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
             </svg>
           </button>
-          <SignOutButton />
+          {/* Conditionally render user info and sign out button */}
+          {loggedInUser && (
+            <div className="flex items-center space-x-2">
+              {loggedInUser.image ? (
+                <img
+                  src={loggedInUser.image}
+                  alt={loggedInUser.name ?? "User Avatar"}
+                  className="h-8 w-8 rounded-full"
+                />
+              ) : (
+                <div className="h-8 w-8 rounded-full bg-gray-600 flex items-center justify-center text-xs font-semibold">
+                  U
+                </div>
+              )}
+              {loggedInUser.name && (
+                <span className="text-sm font-medium hidden sm:inline">
+                  {loggedInUser.name}
+                </span>
+              )}
+              <SignOutButton />
+            </div>
+          )}
         </div>
       </header>
       <main className="flex-1 p-8 pb-16">

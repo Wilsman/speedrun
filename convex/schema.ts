@@ -5,13 +5,11 @@ import { authTables } from "@convex-dev/auth/server";
 const applicationTables = {
   // Explicitly define users table to include tokenIdentifier
   users: defineTable({
+    ...authTables.users.validator.fields, // Merge specific field validators from authTables
     // Fields required by our app - Make optional to handle existing docs
     tokenIdentifier: v.optional(v.string()),
-    // Optional fields that might come from identity or authTables
-    name: v.optional(v.string()),
-    email: v.optional(v.string()),
-    isAnonymous: v.optional(v.boolean()), // Add field from authTables
-  }).index("by_tokenIdentifier", ["tokenIdentifier"]),
+  }).index("by_tokenIdentifier", ["tokenIdentifier"])
+    .index("email", ["email"]), // Correct index name for email lookup by @convex-dev/auth
 
   // User's task progress - Use taskIdentifier string instead of taskId
   userTaskProgress: defineTable({
