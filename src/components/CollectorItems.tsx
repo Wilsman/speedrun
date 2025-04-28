@@ -56,7 +56,7 @@ export function CollectorItems() {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setSearchTerm(e.target.value)
         }
-        className="w-full bg-gray-900 border border-gray-700 text-gray-200 placeholder-gray-500 rounded px-2 py-1 focus:outline-none"
+        className="w-full bg-[#2a2a2a] border border-gray-700 text-gray-200 placeholder-gray-500 rounded px-2 py-1 focus:outline-none"
       />
       <div className="space-y-2">
         {filteredItems.length > 0 ? (

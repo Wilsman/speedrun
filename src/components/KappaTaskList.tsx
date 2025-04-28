@@ -47,7 +47,7 @@ function TraderTaskList({ trader, tasks }: TraderTaskListProps) {
         placeholder={`Search ${trader} tasks...`}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="mt-3 mb-2 w-full bg-gray-700 border border-gray-600 text-gray-200 placeholder-gray-500 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500"
+        className="mt-3 mb-2 w-full bg-[#2a2a2a] border border-gray-600 text-gray-200 placeholder-gray-500 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500"
       />
       <div className="space-y-2 max-h-80 overflow-y-auto">
         {filteredTasks.length > 0 ? (

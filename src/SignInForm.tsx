@@ -8,62 +8,168 @@ export function SignInForm() {
   const [flow, setFlow] = useState<"signIn" | "signUp">("signIn");
   const [submitting, setSubmitting] = useState(false);
 
+  // Base button classes
+  const baseButtonClasses =
+    "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
+
+  // Specific button styles
+  const primaryButtonClasses =
+    "bg-primary-foreground text-primary hover:bg-primary-foreground/90 h-10 px-4 py-2 w-full"; // White bg, dark text
+  const secondaryButtonClasses =
+    "border border-input bg-card hover:bg-muted text-card-foreground h-10 px-4 py-2"; // Dark bg, white text, outline
+  const linkButtonClasses = "text-blue-400 underline-offset-4 hover:underline p-0 h-auto";
+
   return (
-    <div className="w-full">
-      <form
-        className="flex flex-col gap-4"
-        onSubmit={(e) => {
-          e.preventDefault();
-          setSubmitting(true);
-          const formData = new FormData(e.target as HTMLFormElement);
-          formData.set("flow", flow);
-          void signIn("password", formData).catch((_error) => {
-            const toastTitle =
-              flow === "signIn"
-                ? "Could not sign in, did you mean to sign up?"
-                : "Could not sign up, did you mean to sign in?";
-            toast.error(toastTitle);
-            setSubmitting(false);
-          });
-        }}
-      >
-        <input className="input-field" type="email" name="email" placeholder="Email" required />
-        <input className="input-field" type="password" name="password" placeholder="Password" required />
-        <div className="flex gap-2">
-          <button className="auth-button" type="submit" disabled={submitting}>
-            {flow === "signIn" ? "Sign in" : "Sign up"}
+    <div className="w-full max-w-md mx-auto bg-[#1a1a1a] text-white border border-gray-700 rounded-lg p-6 shadow-lg">
+      <div className="text-center mb-6">
+        <h2 className="text-2xl font-bold mb-2">
+          {flow === "signIn" ? "Welcome Back!" : "Create an Account"}
+        </h2>
+        <p className="text-sm text-gray-400">
+          {flow === "signIn"
+            ? "Don't have an account? "
+            : "Already have an account? "}
+          <button
+            type="button"
+            className={`${baseButtonClasses} ${linkButtonClasses}`}
+            onClick={() => setFlow(flow === "signIn" ? "signUp" : "signIn")}
+          >
+            {flow === "signIn" ? "Sign Up" : "Sign In"}
+          </button>
+        </p>
+      </div>
+      <div>
+        <form
+          className="flex flex-col gap-4"
+          onSubmit={(e) => {
+            e.preventDefault();
+            setSubmitting(true);
+            const formData = new FormData(e.target as HTMLFormElement);
+            formData.set("flow", flow);
+            void signIn("password", formData)
+              .catch((_error) => {
+                const toastTitle =
+                  flow === "signIn"
+                    ? "Could not sign in, did you mean to sign up?"
+                    : "Could not sign up, did you mean to sign in?";
+                toast.error(toastTitle);
+              })
+              .finally(() => {
+                setSubmitting(false);
+              });
+          }}
+        >
+          <div className="grid gap-2">
+            <label htmlFor="email" className="text-sm font-medium leading-none">
+              Email
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="m@example.com"
+              required
+              className="flex h-10 w-full rounded-md border border-input bg-[#2a2a2a] px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            />
+          </div>
+          <div className="grid gap-2">
+            <label
+              htmlFor="password"
+              className="text-sm font-medium leading-none"
+            >
+              Password
+            </label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Password"
+              required
+              className="flex h-10 w-full rounded-md border border-input bg-[#2a2a2a] px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            />
+          </div>
+          <button
+            type="submit"
+            className={`${baseButtonClasses} ${primaryButtonClasses} bg-white text-black hover:bg-gray-200`}
+            disabled={submitting}
+          >
+            {flow === "signIn" ? "Sign In" : "Sign Up"}
           </button>
           <button
             type="button"
-            className="py-2 px-4 max-w-md flex justify-center items-center bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
+            className={`${baseButtonClasses} ${secondaryButtonClasses} border-gray-600 bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white col-span-2`}
+            disabled={submitting}
+            onClick={() => void signIn("anonymous")}
+          >
+            Sign in anonymously
+          </button>
+        </form>
+
+        <div className="relative my-4">
+          <div className="absolute inset-0 flex items-center">
+            <span className="w-full border-t border-gray-700" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-[#1a1a1a] px-2 text-gray-400">
+              Or continue with
+            </span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <button
+            type="button"
+            className={`${baseButtonClasses} ${secondaryButtonClasses} border-gray-600 bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white`}
             disabled={submitting}
             onClick={() => void signIn("github")}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="mr-2" viewBox="0 0 1792 1792">
-              <path d="M896 128q209 0 385.5 103t279.5 279.5 103 385.5q0 251-146.5 451.5t-378.5 277.5q-27 5-40-7t-13-30q0-3 .5-76.5t.5-134.5q0-97-52-142 57-6 102.5-18t94-39 81-66.5 53-105 20.5-150.5q0-119-79-206 37-91-8-204-28-9-81 11t-92 44l-38 24q-93-26-192-26t-192 26q-16-11-42.5-27t-83.5-38.5-85-13.5q-45 113-8 204-79 87-79 206 0 85 20.5 150t52.5 105 80.5 67 94 39 102.5 18q-39 36-49 103-21 10-45 15t-57 5-65.5-21.5-55.5-62.5q-19-32-48.5-52t-49.5-24l-20-3q-21 0-29 4.5t-5 11.5 9 14 13 12l7 5q22 10 43.5 38t31.5 51l10 23q13 38 44 61.5t67 30 69.5 7 55.5-3.5l23-4q0 38 .5 88.5t.5 54.5q0 18-13 30t-40 7q-232-77-378.5-277.5t-146.5-451.5q0-209 103-385.5t279.5-279.5 385.5-103zm-477 1103q3-7-7-12-10-3-13 2-3 7 7 12 9 6 13-2zm31 34q7-5-2-16-10-9-16-3-7 5 2 16 10 10 16 3zm30 45q9-7 0-19-8-13-17-6-9 5 0 18t17 7zm42 42q8-8-4-19-12-12-20-3-9 8 4 19 12 12 20 3zm57 25q3-11-13-16-15-4-19 7t13 15q15 6 19-6zm63 5q0-13-17-11-16 0-16 11 0 13 17 11 16 0 16-11zm58-10q-2-11-18-9-16 3-14 15t18 8 14-14z"></path>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              className="mr-2"
+              viewBox="0 0 16 16"
+            >
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
             </svg>
-            Sign in with GitHub
+            GitHub
           </button>
-        </div>
-        <div className="text-center text-sm text-slate-600">
-          <span>{flow === "signIn" ? "Don't have an account? " : "Already have an account? "}</span>
           <button
             type="button"
-            className="text-blue-500 cursor-pointer"
-            onClick={() => setFlow(flow === "signIn" ? "signUp" : "signIn")}
+            className={`${baseButtonClasses} ${secondaryButtonClasses} border-gray-600 bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white`}
+            disabled={submitting}
+            onClick={() => void signIn("google")}
           >
-            {flow === "signIn" ? "Sign up instead" : "Sign in instead"}
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 256 262"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="xMidYMid"
+              className="mr-2"
+            >
+              <path
+                d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"
+                fill="#4285F4"
+              />
+              <path
+                d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1"
+                fill="#34A853"
+              />
+              <path
+                d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782"
+                fill="#FBBC05"
+              />
+              <path
+                d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"
+                fill="#EB4335"
+              />
+            </svg>
+            Google
           </button>
         </div>
-      </form>
-      <div className="flex items-center justify-center my-3">
-          <hr className="my-4 grow" />
-          <span className="mx-4 text-slate-400 ">or</span>
-          <hr className="my-4 grow" />
-        </div>
-        <button className="auth-button" onClick={() => void signIn("anonymous")}>
-          Sign in anonymously
-        </button>
+      </div>
     </div>
   );
 }

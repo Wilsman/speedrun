@@ -19,7 +19,7 @@ export default function App() {
   const loggedInUser = useQuery(api.auth.loggedInUser);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-900 text-gray-100 relative">
+    <div className="min-h-screen flex flex-col bg-[#1a1a1a] text-gray-100 relative">
       <header className="sticky top-0 z-10 bg-gray-800/80 backdrop-blur-sm p-4 flex justify-between items-center border-b border-gray-700">
         <h2 className="text-xl font-semibold text-amber-500">Tarkov Kappa Tracker</h2>
         <div className="flex items-center space-x-4">

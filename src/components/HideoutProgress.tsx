@@ -20,30 +20,30 @@ const SKILL_LEVELS = {
   "Stress Resistance": 51,
 };
 
-const HIDEOUT_ITEMS = {
-  "FireKlean Gun Lube": 1,
-  "Alkaline Cleaner": 2,
-  "Aseptic Bandage": 2,
-  "Awl": 1,
-  "Bolts": 13,
-  // Add more items as needed
-};
+// const HIDEOUT_ITEMS = {
+//   "FireKlean Gun Lube": 1,
+//   "Alkaline Cleaner": 2,
+//   "Aseptic Bandage": 2,
+//   "Awl": 1,
+//   "Bolts": 13,
+//   // Add more items as needed
+// };
 
 export function HideoutProgress() {
   const progress = useQuery(api.hideout.getHideoutProgress);
   const updateProgress = useMutation(api.hideout.updateHideoutProgress);
-  const [activeTab, setActiveTab] = useState<"traders" | "skills" | "items">("traders");
+  const [activeTab, setActiveTab] = useState<"traders" | "skills">("traders");
 
   if (!progress) return null;
 
-  const { skills, traders, items } = progress.hideoutProgress;
+  const { skills, traders } = progress.hideoutProgress;
 
   const renderProgressSection = (
     title: string,
-    type: "traders" | "skills" | "items",
+    type: "traders" | "skills",
     requirements: Record<string, number>
   ) => {
-    const currentProgress = type === "traders" ? traders : type === "skills" ? skills : items;
+    const currentProgress = type === "traders" ? traders : type === "skills" ? skills : {};
 
     return (
       <div className="space-y-4">
@@ -117,7 +117,7 @@ export function HideoutProgress() {
         >
           Skills
         </button>
-        <button
+        {/* <button
           className={`px-4 py-2 rounded ${
             activeTab === "items"
               ? "bg-amber-500 text-gray-900"
@@ -126,7 +126,7 @@ export function HideoutProgress() {
           onClick={() => setActiveTab("items")}
         >
           Items
-        </button>
+        </button> */}
       </div>
 
       <div className="space-y-8">
@@ -134,8 +134,8 @@ export function HideoutProgress() {
           renderProgressSection("Trader Levels", "traders", TRADER_LEVELS)}
         {activeTab === "skills" &&
           renderProgressSection("Skill Levels", "skills", SKILL_LEVELS)}
-        {activeTab === "items" &&
-          renderProgressSection("Required Items", "items", HIDEOUT_ITEMS)}
+        {/* {activeTab === "items" &&
+          renderProgressSection("Required Items", "items", HIDEOUT_ITEMS)} */}
       </div>
     </div>
   );
