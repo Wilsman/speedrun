@@ -1,0 +1,962 @@
+[
+  {
+    "name": "Burning Rubber",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Burning_Rubber",
+    "trader": "Skier",
+    "location": "Ground Zero"
+  },
+  {
+    "name": "Debut",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Debut",
+    "trader": "Prapor",
+    "location": "Anywhere"
+  },
+  {
+    "name": "First in Line",
+    "url": "https://escapefromtarkov.fandom.com/wiki/First_in_Line",
+    "trader": "Therapist",
+    "location": "Ground Zero",
+    "subTasks": [
+      {
+        "item": "Any different medical item from the list on the wiki (1/3)",
+        "foundInRaid": true
+      },
+      {
+        "item": "Any different medical item from the list on the wiki (2/3)",
+        "foundInRaid": true
+      },
+      {
+        "item": "Any different medical item from the list on the wiki (3/3)",
+        "foundInRaid": true
+      }
+    ]
+  },
+  {
+    "name": "Luxurious Life",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Luxurious_Life",
+    "trader": "Prapor",
+    "location": "Ground Zero"
+  },
+  {
+    "name": "Saving the Mole",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Saving_the_Mole",
+    "trader": "Mechanic",
+    "location": "Ground Zero"
+  },
+  {
+    "name": "Shooting Cans",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Shooting_Cans",
+    "trader": "Prapor",
+    "location": "Ground Zero"
+  },
+  {
+    "name": "Shortage",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Shortage",
+    "trader": "Therapist",
+    "location": "N/A",
+    "subTasks": [
+      {
+        "item": "Salewa first aid kit",
+        "foundInRaid": true
+      },
+      {
+        "item": "Salewa first aid kit",
+        "foundInRaid": true
+      },
+      {
+        "item": "Salewa first aid kit",
+        "foundInRaid": true
+      }
+    ]
+  },
+  {
+    "name": "Acquaintance",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Acquaintance",
+    "trader": "Jaeger",
+    "location": "N/A",
+    "subTasks": [
+      {
+        "item": "Iskra ration pack",
+        "foundInRaid": true
+      },
+      {
+        "item": "Iskra ration pack",
+        "foundInRaid": true
+      },
+      {
+        "item": "Iskra ration pack",
+        "foundInRaid": true
+      },
+      {
+        "item": "Pack of instant noodles",
+        "foundInRaid": true
+      },
+      {
+        "item": "Pack of instant noodles",
+        "foundInRaid": true
+      },
+      {
+        "item": "Can of beef stew (Large)",
+        "foundInRaid": true
+      },
+      {
+        "item": "Can of beef stew (Large)",
+        "foundInRaid": true
+      }
+    ]
+  },
+  {
+    "name": "Background Check",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Background_Check",
+    "trader": "Prapor",
+    "location": "Customs"
+  },
+  {
+    "name": "Gunsmith - Part 1",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Gunsmith_-_Part_1",
+    "trader": "Mechanic",
+    "location": "N/A"
+  },
+  {
+    "name": "Introduction",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Introduction",
+    "trader": "Mechanic",
+    "location": "Woods"
+  },
+  {
+    "name": "The Huntsman Path - Forest Cleaning",
+    "url": "https://escapefromtarkov.fandom.com/wiki/The_Huntsman_Path_-_Forest_Cleaning",
+    "trader": "Jaeger",
+    "location": "Anywhere"
+  },
+  {
+    "name": "The Huntsman Path - Secured Perimeter",
+    "url": "https://escapefromtarkov.fandom.com/wiki/The_Huntsman_Path_-_Secured_Perimeter",
+    "trader": "Jaeger",
+    "location": "Factory"
+  },
+  {
+    "name": "The Survivalist Path - Thrifty",
+    "url": "https://escapefromtarkov.fandom.com/wiki/The_Survivalist_Path_-_Thrifty",
+    "trader": "Jaeger",
+    "location": "Woods"
+  },
+  {
+    "name": "The Survivalist Path - Tough Guy",
+    "url": "https://escapefromtarkov.fandom.com/wiki/The_Survivalist_Path_-_Tough_Guy",
+    "trader": "Jaeger",
+    "location": "Woods"
+  },
+  {
+    "name": "The Survivalist Path - Unprotected but Dangerous",
+    "url": "https://escapefromtarkov.fandom.com/wiki/The_Survivalist_Path_-_Unprotected_but_Dangerous",
+    "trader": "Jaeger",
+    "location": "N/A"
+  },
+  {
+    "name": "The Survivalist Path - Wounded Beast",
+    "url": "https://escapefromtarkov.fandom.com/wiki/The_Survivalist_Path_-_Wounded_Beast",
+    "trader": "Jaeger",
+    "location": "Anywhere"
+  },
+  {
+    "name": "The Survivalist Path - Zhivchik",
+    "url": "https://escapefromtarkov.fandom.com/wiki/The_Survivalist_Path_-_Zhivchik",
+    "trader": "Jaeger",
+    "location": "Anywhere"
+  },
+  {
+    "name": "The Tarkov Shooter - Part 1",
+    "url": "https://escapefromtarkov.fandom.com/wiki/The_Tarkov_Shooter_-_Part_1",
+    "trader": "Jaeger",
+    "location": "Anywhere"
+  },
+  {
+    "name": "The Tarkov Shooter - Part 2",
+    "url": "https://escapefromtarkov.fandom.com/wiki/The_Tarkov_Shooter_-_Part_2",
+    "trader": "Jaeger",
+    "location": "Anywhere"
+  },
+  {
+    "name": "The Tarkov Shooter - Part 3",
+    "url": "https://escapefromtarkov.fandom.com/wiki/The_Tarkov_Shooter_-_Part_3",
+    "trader": "Jaeger",
+    "location": "Anywhere"
+  },
+  {
+    "name": "The Tarkov Shooter - Part 4",
+    "url": "https://escapefromtarkov.fandom.com/wiki/The_Tarkov_Shooter_-_Part_4",
+    "trader": "Jaeger",
+    "location": "Anywhere"
+  },
+  {
+    "name": "The Tarkov Shooter - Part 5",
+    "url": "https://escapefromtarkov.fandom.com/wiki/The_Tarkov_Shooter_-_Part_5",
+    "trader": "Jaeger",
+    "location": "Customs"
+  },
+  {
+    "name": "Sanitary Standards - Part 1",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Sanitary_Standards_-_Part_1",
+    "trader": "Therapist",
+    "location": "N/A",
+    "subTasks": [
+      {
+        "item": "Gas analyzer",
+        "foundInRaid": true
+      }
+    ]
+  },
+  {
+    "name": "BP Depot",
+    "url": "https://escapefromtarkov.fandom.com/wiki/BP_Depot",
+    "trader": "Prapor",
+    "location": "Customs"
+  },
+  {
+    "name": "Delivery from the Past",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Delivery_From_the_Past",
+    "trader": "Prapor",
+    "location": "Multi"
+  },
+  {
+    "name": "Gunsmith - Part 2",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Gunsmith_-_Part_2",
+    "trader": "Mechanic",
+    "location": "N/A"
+  },
+  {
+    "name": "Supplier",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Supplier",
+    "trader": "Skier",
+    "location": "N/A",
+    "subTasks": [
+      {
+        "item": "BNTI Module-3M body armor",
+        "foundInRaid": true
+      },
+      {
+        "item": "TOZ-106 20ga bolt-action shotgun",
+        "foundInRaid": true
+      }
+    ]
+  },
+  {
+    "name": "Bad Rep Evidence",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Bad_Rep_Evidence",
+    "trader": "Prapor",
+    "location": "Customs"
+  },
+  {
+    "name": "Gunsmith - Part 3",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Gunsmith_-_Part_3",
+    "trader": "Mechanic",
+    "location": "N/A"
+  },
+  {
+    "name": "The Extortionist",
+    "url": "https://escapefromtarkov.fandom.com/wiki/The_Extortionist",
+    "trader": "Skier",
+    "location": "Customs"
+  },
+  {
+    "name": "Golden Swag",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Golden_Swag",
+    "trader": "Skier",
+    "location": "Customs"
+  },
+  {
+    "name": "Painkiller",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Painkiller",
+    "trader": "Therapist",
+    "location": "N/A",
+    "subTasks": [
+      {
+        "item": "Morphine injector",
+        "foundInRaid": true
+      },
+      {
+        "item": "Morphine injector",
+        "foundInRaid": true
+      },
+      {
+        "item": "Morphine injector",
+        "foundInRaid": true
+      },
+      {
+        "item": "Morphine injector",
+        "foundInRaid": true
+      }
+    ]
+  },
+  {
+    "name": "Sanitary Standards - Part 2",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Sanitary_Standards_-_Part_2",
+    "trader": "Therapist",
+    "location": "N/A",
+    "subTasks": [
+      {
+        "item": "Gas analyzer",
+        "foundInRaid": true
+      },
+      {
+        "item": "Gas analyzer",
+        "foundInRaid": true
+      }
+    ]
+  },
+  {
+    "name": "What’s on the Flash Drive?",
+    "url": "https://escapefromtarkov.fandom.com/wiki/What%E2%80%99s_on_the_Flash_Drive%3F",
+    "trader": "Skier",
+    "location": "Woods",
+    "subTasks": [
+      {
+        "item": "Secure Flash drive",
+        "foundInRaid": true
+      },
+      {
+        "item": "Secure Flash drive",
+        "foundInRaid": true
+      }
+    ]
+  },
+  {
+    "name": "Friend From the West - Part 1",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Friend_From_the_West_-_Part_1",
+    "trader": "Skier",
+    "location": "Anywhere"
+  },
+  {
+    "name": "Friend From the West - Part 2",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Friend_From_the_West_-_Part_2",
+    "trader": "Skier",
+    "location": "N/A"
+  },
+  {
+    "name": "Ice Cream Cones",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Ice_Cream_Cones",
+    "trader": "Prapor",
+    "location": "N/A",
+    "subTasks": [
+      {
+        "item": "AK-74 5.45x39 6L31 60-round magazine",
+        "foundInRaid": false
+      },
+      {
+        "item": "AK-74 5.45x39 6L31 60-round magazine",
+        "foundInRaid": false
+      },
+      {
+        "item": "AK-74 5.45x39 6L31 60-round magazine",
+        "foundInRaid": false
+      }
+    ]
+  },
+  {
+    "name": "Chemical - Part 1",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Chemical_-_Part_1",
+    "trader": "Skier",
+    "location": "Customs"
+  },
+  {
+    "name": "Chemical - Part 2",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Chemical_-_Part_2",
+    "trader": "Skier",
+    "location": "Customs"
+  },
+  {
+    "name": "Fishing Gear",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Fishing_Gear",
+    "trader": "Peacekeeper",
+    "location": "Shoreline"
+  },
+  {
+    "name": "Gunsmith - Part 4",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Gunsmith_-_Part_4",
+    "trader": "Mechanic",
+    "location": "N/A"
+  },
+  {
+    "name": "Gunsmith - Part 5",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Gunsmith_-_Part_5",
+    "trader": "Mechanic",
+    "location": "N/A"
+  },
+  {
+    "name": "Pharmacist",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Pharmacist",
+    "trader": "Therapist",
+    "location": "Customs"
+  },
+  {
+    "name": "Scrap Metal",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Scrap_Metal",
+    "trader": "Peacekeeper",
+    "location": "Shoreline"
+  },
+  {
+    "name": "Tigr Safari",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Tigr_Safari",
+    "trader": "Peacekeeper",
+    "location": "Customs"
+  },
+  {
+    "name": "Chemical - Part 3",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Chemical_-_Part_3",
+    "trader": "Skier",
+    "location": "Factory"
+  },
+  {
+    "name": "Chemical - Part 4 (choice)",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Chemical_-_Part_4",
+    "trader": "Skier",
+    "location": "Customs"
+  },
+  {
+    "name": "Eagle Eye",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Eagle_Eye",
+    "trader": "Peacekeeper",
+    "location": "Shoreline"
+  },
+  {
+    "name": "Humanitarian Supplies",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Humanitarian_Supplies",
+    "trader": "Peacekeeper",
+    "location": "Shoreline"
+  },
+  {
+    "name": "Broadcast - Part 1",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Broadcast_-_Part_1",
+    "trader": "Mechanic",
+    "location": "Lighthouse"
+  },
+  {
+    "name": "Cargo X - Part 1",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Cargo_X_-_Part_1",
+    "trader": "Peacekeeper",
+    "location": "Shoreline"
+  },
+  {
+    "name": "Cargo X - Part 2",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Cargo_X_-_Part_2",
+    "trader": "Peacekeeper",
+    "location": "Shoreline"
+  },
+  {
+    "name": "Cargo X - Part 3",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Cargo_X_-_Part_3",
+    "trader": "Peacekeeper",
+    "location": "Shoreline"
+  },
+  {
+    "name": "Cargo X - Part 4",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Cargo_X_-_Part_4",
+    "trader": "Peacekeeper",
+    "location": "Lighthouse"
+  },
+  {
+    "name": "Farming - Part 1",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Farming_-_Part_1",
+    "trader": "Mechanic",
+    "location": "Factory"
+  },
+  {
+    "name": "Farming - Part 2",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Farming_-_Part_2",
+    "trader": "Mechanic",
+    "location": "N/A",
+    "subTasks": [
+      {
+        "item": "Power cord",
+        "foundInRaid": true
+      },
+      {
+        "item": "Power cord",
+        "foundInRaid": true
+      },
+      {
+        "item": "T-Shaped plug",
+        "foundInRaid": true
+      },
+      {
+        "item": "T-Shaped plug",
+        "foundInRaid": true
+      },
+      {
+        "item": "T-Shaped plug",
+        "foundInRaid": true
+      },
+      {
+        "item": "T-Shaped plug",
+        "foundInRaid": true
+      },
+      {
+        "item": "Printed circuit board",
+        "foundInRaid": true
+      },
+      {
+        "item": "Printed circuit board",
+        "foundInRaid": true
+      }
+    ]
+  },
+  {
+    "name": "Spa Tour - Part 1",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Spa_Tour_-_Part_1",
+    "trader": "Peacekeeper",
+    "location": "Shoreline"
+  },
+  {
+    "name": "Spa Tour - Part 2",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Spa_Tour_-_Part_2",
+    "trader": "Peacekeeper",
+    "location": "Shoreline"
+  },
+  {
+    "name": "Spa Tour - Part 3",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Spa_Tour_-_Part_3",
+    "trader": "Peacekeeper",
+    "location": "N/A",
+    "subTasks": [
+      {
+        "item": "WD-40 (100ml)",
+        "foundInRaid": true
+      },
+      {
+        "item": "WD-40 (400ml)",
+        "foundInRaid": true
+      },
+      {
+        "item": "Clin window cleaner",
+        "foundInRaid": true
+      },
+      {
+        "item": "Clin window cleaner",
+        "foundInRaid": true
+      },
+      {
+        "item": "Corrugated hose",
+        "foundInRaid": true
+      },
+      {
+        "item": "Corrugated hose",
+        "foundInRaid": true
+      },
+      {
+        "item": "Ox bleach",
+        "foundInRaid": true
+      },
+      {
+        "item": "Ox bleach",
+        "foundInRaid": true
+      }
+    ]
+  },
+  {
+    "name": "Spa Tour - Part 4",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Spa_Tour_-_Part_4",
+    "trader": "Peacekeeper",
+    "location": "Shoreline"
+  },
+  {
+    "name": "Spa Tour - Part 5",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Spa_Tour_-_Part_5",
+    "trader": "Peacekeeper",
+    "location": "Shoreline"
+  },
+  {
+    "name": "Spa Tour - Part 6",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Spa_Tour_-_Part_6",
+    "trader": "Peacekeeper",
+    "location": "N/A"
+  },
+  {
+    "name": "Spa Tour - Part 7",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Spa_Tour_-_Part_7",
+    "trader": "Peacekeeper",
+    "location": "N/A",
+    "subTasks": [
+      {
+        "item": "Morphine injector",
+        "foundInRaid": true
+      },
+      {
+        "item": "Morphine injector",
+        "foundInRaid": true
+      },
+      {
+        "item": "Morphine injector",
+        "foundInRaid": true
+      },
+      {
+        "item": "Morphine injector",
+        "foundInRaid": true
+      },
+      {
+        "item": "Alkaline cleaner for heat exchangers",
+        "foundInRaid": true
+      },
+      {
+        "item": "Alkaline cleaner for heat exchangers",
+        "foundInRaid": true
+      },
+      {
+        "item": "Corrugated hose",
+        "foundInRaid": true
+      },
+      {
+        "item": "Corrugated hose",
+        "foundInRaid": true
+      },
+      {
+        "item": "Propane tank (5L)",
+        "foundInRaid": true
+      },
+      {
+        "item": "Propane tank (5L)",
+        "foundInRaid": true
+      }
+    ]
+  },
+  {
+    "name": "The Cult - Part 1",
+    "url": "https://escapefromtarkov.fandom.com/wiki/The_Cult_-_Part_1",
+    "trader": "Peacekeeper",
+    "location": "Shoreline"
+  },
+  {
+    "name": "The Cult - Part 2",
+    "url": "https://escapefromtarkov.fandom.com/wiki/The_Cult_-_Part_2",
+    "trader": "Peacekeeper",
+    "location": "Multi"
+  },
+  {
+    "name": "Gunsmith - Part 6",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Gunsmith_-_Part_6",
+    "trader": "Mechanic",
+    "location": "N/A"
+  },
+  {
+    "name": "A Fuel Matter",
+    "url": "https://escapefromtarkov.fandom.com/wiki/A_Fuel_Matter",
+    "trader": "Ragman",
+    "location": "Reserve"
+  },
+  {
+    "name": "Big Sale",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Big_Sale",
+    "trader": "Ragman",
+    "location": "Interchange"
+  },
+  {
+    "name": "Broadcast - Part 2",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Broadcast_-_Part_2",
+    "trader": "Mechanic",
+    "location": "Streets of Tarkov"
+  },
+  {
+    "name": "Database - Part 1",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Database_-_Part_1",
+    "trader": "Ragman",
+    "location": "Interchange"
+  },
+  {
+    "name": "Database - Part 2",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Database_-_Part_2",
+    "trader": "Ragman",
+    "location": "Interchange"
+  },
+  {
+    "name": "Gunsmith - Part 7",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Gunsmith_-_Part_7",
+    "trader": "Mechanic",
+    "location": "N/A"
+  },
+  {
+    "name": "Make ULTRA Great Again",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Make_ULTRA_Great_Again",
+    "trader": "Ragman",
+    "location": "Interchange"
+  },
+  {
+    "name": "Only Business",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Only_Business",
+    "trader": "Ragman",
+    "location": "N/A"
+  },
+  {
+    "name": "Shaking up the Teller",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Shaking_up_the_Teller",
+    "trader": "Prapor",
+    "location": "Customs"
+  },
+  {
+    "name": "Gunsmith - Part 8",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Gunsmith_-_Part_8",
+    "trader": "Mechanic",
+    "location": "N/A"
+  },
+  {
+    "name": "Seaside Vacation",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Seaside_Vacation",
+    "trader": "Therapist",
+    "location": "Lighthouse"
+  },
+  {
+    "name": "The Punisher - Part 1",
+    "url": "https://escapefromtarkov.fandom.com/wiki/The_Punisher_-_Part_1",
+    "trader": "Prapor",
+    "location": "Shoreline"
+  },
+  {
+    "name": "Setup",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Setup",
+    "trader": "Skier",
+    "location": "Customs"
+  },
+  {
+    "name": "The Punisher - Part 2",
+    "url": "https://escapefromtarkov.fandom.com/wiki/The_Punisher_-_Part_2",
+    "trader": "Prapor",
+    "location": "Reserve",
+    "subTasks": [
+      {
+        "item": "Lower half-mask",
+        "foundInRaid": true
+      },
+      {
+        "item": "Lower half-mask",
+        "foundInRaid": true
+      },
+      {
+        "item": "Lower half-mask",
+        "foundInRaid": true
+      },
+      {
+        "item": "Lower half-mask",
+        "foundInRaid": true
+      },
+      {
+        "item": "Lower half-mask",
+        "foundInRaid": true
+      },
+      {
+        "item": "Lower half-mask",
+        "foundInRaid": true
+      },
+      {
+        "item": "Lower half-mask",
+        "foundInRaid": true
+      }
+    ]
+  },
+  {
+    "name": "Gunsmith - Part 9",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Gunsmith_-_Part_9",
+    "trader": "Mechanic",
+    "location": "N/A"
+  },
+  {
+    "name": "The Punisher - Part 3",
+    "url": "https://escapefromtarkov.fandom.com/wiki/The_Punisher_-_Part_3",
+    "trader": "Prapor",
+    "location": "Customs"
+  },
+  {
+    "name": "Courtesy Visit",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Courtesy_Visit",
+    "trader": "Jaeger",
+    "location": "Shoreline"
+  },
+  {
+    "name": "Gunsmith - Part 10",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Gunsmith_-_Part_10",
+    "trader": "Mechanic",
+    "location": "N/A"
+  },
+  {
+    "name": "Health Care Privacy - Part 1",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Health_Care_Privacy_-_Part_1",
+    "trader": "Therapist",
+    "location": "Shoreline"
+  },
+  {
+    "name": "Health Care Privacy - Part 2",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Health_Care_Privacy_-_Part_2",
+    "trader": "Therapist",
+    "location": "Shoreline"
+  },
+  {
+    "name": "The Punisher - Part 4",
+    "url": "https://escapefromtarkov.fandom.com/wiki/The_Punisher_-_Part_4",
+    "trader": "Prapor",
+    "location": "Lighthouse",
+    "subTasks": [
+      {
+        "item": "Bars A-2607 95Kh18 knife",
+        "foundInRaid": true
+      },
+      {
+        "item": "Bars A-2607 95Kh18 knife",
+        "foundInRaid": true
+      },
+      {
+        "item": "Bars A-2607 95Kh18 knife",
+        "foundInRaid": true
+      },
+      {
+        "item": "Bars A-2607 95Kh18 knife",
+        "foundInRaid": true
+      },
+      {
+        "item": "Bars A-2607 95Kh18 knife",
+        "foundInRaid": true
+      }
+    ]
+  },
+  {
+    "name": "Informed Means Armed",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Informed_Means_Armed",
+    "trader": "Skier",
+    "location": "Multi"
+  },
+  {
+    "name": "Lost Contact",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Lost_Contact",
+    "trader": "Therapist",
+    "location": "Lighthouse"
+  },
+  {
+    "name": "Chumming",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Chumming",
+    "trader": "Skier",
+    "location": "Multi"
+  },
+  {
+    "name": "Debtor",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Debtor",
+    "trader": "Skier",
+    "location": "Streets of Tarkov"
+  },
+  {
+    "name": "House Arrest - Part 1",
+    "url": "https://escapefromtarkov.fandom.com/wiki/House_Arrest_-_Part_1",
+    "trader": "Skier",
+    "location": "Streets of Tarkov"
+  },
+  {
+    "name": "Assessment - Part 1",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Assessment_-_Part_1",
+    "trader": "Mechanic",
+    "location": "Lighthouse"
+  },
+  {
+    "name": "Assessment - Part 2",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Assessment_-_Part_2",
+    "trader": "Mechanic",
+    "location": "Woods"
+  },
+  {
+    "name": "Assessment - Part 3",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Assessment_-_Part_3",
+    "trader": "Mechanic",
+    "location": "The Lab"
+  },
+  {
+    "name": "Getting Acquainted",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Getting_Acquainted",
+    "trader": "Mechanic",
+    "location": "Lighthouse"
+  },
+  {
+    "name": "Key to the Tower",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Key_to_the_Tower",
+    "trader": "Mechanic",
+    "location": "Lighthouse"
+  },
+  {
+    "name": "Knock-Knock",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Knock-Knock",
+    "trader": "Mechanic",
+    "location": "Lighthouse"
+  },
+  {
+    "name": "Network Provider - Part 1",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Network_Provider_-_Part_1",
+    "trader": "Mechanic",
+    "location": "N/A",
+    "subTasks": [
+      {
+        "item": "Electronic components",
+        "foundInRaid": true
+      },
+      {
+        "item": "Electronic components",
+        "foundInRaid": true
+      },
+      {
+        "item": "Electronic components",
+        "foundInRaid": true
+      },
+      {
+        "item": "Electronic components",
+        "foundInRaid": true
+      },
+      {
+        "item": "Military COFDM Wireless Signal Transmitter",
+        "foundInRaid": true
+      },
+      {
+        "item": "Military COFDM Wireless Signal Transmitter",
+        "foundInRaid": true
+      },
+      {
+        "item": "Military COFDM Wireless Signal Transmitter",
+        "foundInRaid": true
+      },
+      {
+        "item": "Military COFDM Wireless Signal Transmitter",
+        "foundInRaid": true
+      },
+      {
+        "item": "Gas analyzer",
+        "foundInRaid": true
+      },
+      {
+        "item": "Gas analyzer",
+        "foundInRaid": true
+      },
+      {
+        "item": "Gas analyzer",
+        "foundInRaid": true
+      },
+      {
+        "item": "Gas analyzer",
+        "foundInRaid": true
+      },
+      {
+        "item": "Broken GPhone smartphone",
+        "foundInRaid": true
+      },
+      {
+        "item": "Broken GPhone smartphone",
+        "foundInRaid": true
+      },
+      {
+        "item": "Broken GPhone smartphone",
+        "foundInRaid": true
+      },
+      {
+        "item": "Broken GPhone smartphone",
+        "foundInRaid": true
+      }
+    ]
+  },
+  {
+    "name": "Network Provider - Part 2",
+    "url": "https://escapefromtarkov.fandom.com/wiki/Network_Provider_-_Part_2",
+    "trader": "Mechanic",
+    "location": "Lighthouse"
+  }
+]

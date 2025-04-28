@@ -4,7 +4,7 @@ import { SignOutButton } from "./SignOutButton";
 import { useState, useEffect } from "react";
 import { api } from "../convex/_generated/api";
 import { BossList } from "./components/BossList";
-// import { HideoutProgress } from "./components/HideoutProgress";
+import { HideoutProgress } from "./components/HideoutProgress";
 import { CollectorItems } from "./components/CollectorItems";
 import { PrestigeProgress } from "./components/PrestigeProgress";
 import { LightkeeperRequirements } from "./components/LightkeeperRequirements";
@@ -115,7 +115,7 @@ function Tabs({
     { id: "collector", label: "Collector Items", type: "internal" as const },
     { id: "lightkeeper", label: "Lightkeeper Req.", type: "internal" as const },
     { id: "bosses", label: "Boss Progression", type: "internal" as const },
-    // { id: "hideout", label: "Hideout", type: "internal" as const },
+    { id: "hideout", label: "Hideout", type: "internal" as const },
     { id: "prestige", label: "Prestige Goals", type: "internal" as const },
     { id: "storyline", label: "1.0 Storyline quests", type: "external" as const, href: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
   ];
@@ -180,8 +180,8 @@ function TabContent({ activeTab }: TabContentProps) {
       return <CollectorItems />;
     case "bosses":
       return <BossList />;
-    // case "hideout":
-    //   return <HideoutProgress />;
+    case "hideout":
+      return <HideoutProgress />;
     case "prestige":
       return <PrestigeProgress />;
     case "lightkeeper":
