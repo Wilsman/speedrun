@@ -20,6 +20,7 @@ interface LocalTask {
   name: string;
   order: number;
   completed: boolean;
+  url?: string;
 }
 
 interface TraderTaskListProps {
@@ -62,12 +63,41 @@ function TraderTaskList({ trader, tasks }: TraderTaskListProps) {
                   onChange={() => handleToggle(task.name)}
                   className="accent-amber-500 w-5 h-5 rounded border-gray-600 focus:ring-amber-500 focus:ring-offset-gray-800"
                 />
-                <label
-                  htmlFor={`${trader}-${task.name}`}
-                  className={`text-sm font-medium cursor-pointer ${task.completed ? 'line-through text-gray-500' : 'text-gray-200'}`}
-                >
-                  {task.name}
-                </label>
+                <div className="flex items-center">
+                  <label
+                    htmlFor={`${trader}-${task.name}`}
+                    className={`text-sm font-medium cursor-pointer ${task.completed ? 'line-through text-gray-500' : 'text-gray-200'}`}
+                  >
+                    {task.name}
+                  </label>
+                  {task.url && (
+                    <a 
+                      href={task.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      aria-label={`Open wiki page for ${task.name}`} 
+                      className="ml-1 text-gray-400 hover:text-blue-500" 
+                      tabIndex={-1}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        width="16" 
+                        height="16" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        className="w-4 h-4"
+                      >
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                      </svg>
+                    </a>
+                  )}
+                </div>
               </div>
             ))
         ) : (
