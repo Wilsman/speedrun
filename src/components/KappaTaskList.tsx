@@ -112,6 +112,8 @@ function TraderTaskList({ trader, tasks }: TraderTaskListProps) {
 
 export function KappaTaskList() {
   const [openTrader, setOpenTrader] = useState<string | null>(null);
+  const [globalSearchTerm, setGlobalSearchTerm] = useState('');
+  const [tradersToShow, setTradersToShow] = useState<Set<string>>(new Set(KAPPA_TRADERS));
 
   // Fetch user progress using the new query
   const userProgress = useQuery(api.tasks.getProgress);
@@ -141,18 +143,55 @@ export function KappaTaskList() {
     return <div className="text-center text-gray-400 py-4">Loading task progress...</div>;
   }
 
+  // Filter traders based on global search
+  const handleGlobalSearch = (term: string) => {
+    setGlobalSearchTerm(term);
+    if (!term.trim()) {
+      setTradersToShow(new Set(KAPPA_TRADERS));
+      return;
+    }
+    
+    const matchingTraders = new Set<string>();
+    const searchLower = term.toLowerCase();
+    
+    Object.entries(processedTasksByTrader).forEach(([trader, tasks]) => {
+      const hasMatchingTask = tasks.some(task => 
+        task.name.toLowerCase().includes(searchLower)
+      );
+      if (hasMatchingTask) {
+        matchingTraders.add(trader);
+      }
+    });
+    
+    setTradersToShow(matchingTraders);
+  };
+
   return (
     <div className="w-full space-y-4">
-      
       <div className="bg-gray-800 border border-gray-700 rounded-md p-4 mt-6 mb-6">
         <div className="flex justify-between items-center mb-2 text-sm text-gray-300">
           <span>Overall Progress</span>
           <span>{overallCompleted} / {overallTotal} tasks completed</span>
         </div>
         <ProgressBar value={overallCompleted} max={overallTotal} />
+        
+        {/* Global Search Bar */}
+        <div className="mt-4">
+          <input
+            type="text"
+            placeholder="Search all tasks..."
+            value={globalSearchTerm}
+            onChange={(e) => handleGlobalSearch(e.target.value)}
+            className="w-full bg-[#2a2a2a] border border-gray-600 text-gray-200 placeholder-gray-500 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500"
+          />
+        </div>
       </div>
 
       {KAPPA_TRADERS.map((trader) => {
+        // Skip traders that don't match the search filter
+        if (globalSearchTerm && !tradersToShow.has(trader)) {
+          return null;
+        }
         const traderTasks = processedTasksByTrader[trader] || [];
         const traderCompleted = traderTasks.filter(t => t.completed).length;
         const traderTotal = traderTasks.length;

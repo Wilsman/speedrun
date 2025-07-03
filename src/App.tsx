@@ -68,6 +68,21 @@ export default function App() {
         isVisible={isNotepadVisible}
         onClose={() => setIsNotepadVisible(false)}
       />
+      
+      <footer className="py-10 text-center text-gray-400 text-sm mt-8">
+        <p className="mb-2">
+          General sheet made by <span className="text-amber-500">ItzPyroGG</span>, thanks to 
+          <span className="text-amber-500"> Mr2am</span> and <span className="text-amber-500">Magicman</span> for adding boss progression and hideout requirements.
+        </p>
+        <a 
+          href="https://bit.ly/PrestigeTracker" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-amber-500 hover:underline"
+        >
+          View the original spreadsheet here
+        </a>
+      </footer>
     </div>
   );
 }
