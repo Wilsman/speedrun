@@ -12,6 +12,7 @@ import { Toaster } from "sonner";
 import { KappaTaskList } from "./components/KappaTaskList";
 import { VersionLabel } from "@/components/VersionLabel";
 import { Notepad } from "./components/Notepad";
+import { MigrationBanner } from "./components/MigrationBanner";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("tasks");
@@ -105,6 +106,7 @@ function Content({
 }: ContentProps) {
   return (
     <div className="flex flex-col gap-8">
+      <MigrationBanner />
       <div className="text-center">
         <h1 className="text-4xl font-bold text-amber-500 mb-4">
           Tarkov Kappa Prestige Tracker
